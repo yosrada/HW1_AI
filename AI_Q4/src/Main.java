@@ -11,10 +11,25 @@ public class Main {
              {{20,21}, {22, 23}}  // Bottom
          };
          State s = new State(GoalCube);
+         for (int[][] face : GoalCube) {
+             for (int[] row : face) {
+                 for (int tile : row) {
+                     System.out.print(tile + " ");
+                 }
+             }
+         }
+         System.out.println("\n ******************************");
+       System.out.println(s.toString());
+     //    System.out.println(isGoal(s));
+        rotateFrontClockwise(GoalCube, 'U');
          System.out.println(s.toString());
-         System.out.println(isGoal(s));
-       //  rotateFrontClockwise(GoalCube, 'U');
-        // System.out.println(s.toString());
+         for (int[][] face : GoalCube) {
+             for (int[] row : face) {
+                 for (int tile : row) {
+                     System.out.print(tile + " ");
+                 }
+             }
+         }
          
       
 
@@ -69,23 +84,24 @@ public class Main {
                           state[face][row][col] = state[face][row+1][col+1] ;
                           state[face][row+1][col+1] = i ; 
                          
-//                          
-//                          System.out.println(state[face][row][col]); //zero
-//                          System.out.println(state[face][row][col+1]);//1
-//                          System.out.println(state[face][row+1][col]);//2
-//                          System.out.println(state[face][row+1][col+1]);//3
 
                         }
-                        if(face == 1 && row ==0 && col ==0 || face == 3 && row ==0 && col ==0) {
+                        if(face == 1 && row ==0 && col ==0 ) {
                         	int[] pair = state[face][row];
-                        	state[face][row] =state[face+1][row] ;
-                        	state[face+1][row] = pair;
+                        	state[face][row] =state[face+4][row] ;
+                        	state[face+4][row] = pair;
                         	 
                         }
-                        if(face == 3 && row ==0 && col ==0 ) {
+                        if(face == 2 && row ==0 && col ==0 ) {
                         	int[] pair = state[face][row];
-                        	state[face][row] =state[face+1][row] ;
-                        	state[face+1][row] = pair;
+                        	state[face][row] =state[face+2][row] ;
+                        	state[face+2][row] = pair;
+                        	 
+                        }
+                        if(face == 2 && row ==0 && col ==0 ) {
+                        	int[] pair = state[face][row];
+                        	state[face][row] =state[face+3][row] ;
+                        	state[face+3][row] = pair;
                         }
                      
                         }
