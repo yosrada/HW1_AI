@@ -1,10 +1,10 @@
 import java.util.Arrays;
 
 public class State {
-    private char[][][] cube;
+    private int[][][] cube;
   
 
-	public State(char[][][] cube) {
+	public State(int[][][] cube) {
 		super();
 		this.cube = cube;
 	}
@@ -13,7 +13,7 @@ public class State {
 	
 
 
-	public char[][][] getCube() {
+	public int[][][] getCube() {
 		return cube;
 	}
 
@@ -21,7 +21,7 @@ public class State {
 
 
 
-	public void setCube(char[][][] cube) {
+	public void setCube(int[][][] cube) {
 		this.cube = cube;
 	}
 
@@ -33,7 +33,7 @@ public class State {
 	public String toString() {
 		String cubeFaces="";
 		for (int face = 0; face < cube.length; face++) {
-			cubeFaces+="Face " + (face + 1) + ":\n";
+			cubeFaces+="Face " + (face ) + ":\n";
 	        // Iterate through each row of the face
 	        for (int row = 0; row < cube[face].length; row++) {
 	            // Iterate through each column of the face
@@ -57,6 +57,6 @@ public class State {
             {{'Y', 'Y'}, {'Y', 'Y'}}  // Bottom
         };
     }*/
-	
+
 
 }
