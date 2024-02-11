@@ -21,7 +21,11 @@ public class Main {
          System.out.println("\n ******************************");
        System.out.println(s.toString());
      //    System.out.println(isGoal(s));
+<<<<<<< Updated upstream
         rotateFrontClockwise(GoalCube, "D`");
+=======
+        rotateFrontClockwise(GoalCube, "B");
+>>>>>>> Stashed changes
          System.out.println(s.toString());
          for (int[][] face : GoalCube) {
              for (int[] row : face) {
@@ -75,6 +79,7 @@ public class Main {
          return flag;
     }
 	static int[][][] rotateFrontClockwise(int[][][] state , String move) {
+<<<<<<< Updated upstream
 		System.out.println(move+"***\n");
 		System.out.println("im in");
 		if(move=="U`") {
@@ -94,6 +99,27 @@ public class Main {
                        state[face][row][col+1] = state[face][row+1][col] ;
                        state[face][row+1][col] = i ; 
                       
+=======
+		
+        switch (move) {
+        	case "U":
+                for (int face = 0; face < state.length; face++) {
+                    // Iterate through each row of the face
+                    for (int row = 0; row < state[face].length; row++) {
+                        // Iterate through each column of the face
+                        for (int col = 0; col < state[face][row].length; col++) {
+                        if(face ==0 && row == 0 && col == 0) {	//face 0 
+                          int i = state[face][row][col];	
+                          state[face][row][col] = state[face][row][col+1];// 0 => 2
+                          state[face][row][col+1] = i ; 
+                          i = state[face][row+1][col];
+                          state[face][row+1][col] = state[face][row+1][col+1];
+                          state[face][row+1][col+1] = i ;
+                          i = state[face][row][col] ; 
+                          state[face][row][col] = state[face][row+1][col+1] ;
+                          state[face][row+1][col+1] = i ; 
+                         
+>>>>>>> Stashed changes
 
                      }
                      if(face == 1 && row ==0 && col ==0 ) {
@@ -213,6 +239,7 @@ public class Main {
 
                     }
 
+<<<<<<< Updated upstream
 
 
                  
@@ -754,6 +781,255 @@ public class Main {
 //                }
 //        		
 //        }	
+=======
+                }break;
+        	case "D":
+                for (int face = 0; face < state.length; face++) {
+                    // Iterate through each row of the face
+                    for (int row = 0; row < state[face].length; row++) {
+                        // Iterate through each column of the face
+                        for (int col = 0; col < state[face][row].length; col++) {
+                        if(face == 1 && row ==1 && col ==0 ) {
+                        	int[] pair = state[face][row];
+                        	state[face][row] =state[face+4][row] ;
+                        	state[face+4][row] = pair;
+                        	 
+                        }
+                        if(face == 2 && row ==1 && col ==0 ) {
+                        	int[] pair = state[face][row];
+                        	state[face][row] =state[face+2][row] ;
+                        	state[face+2][row] = pair;
+                        	 
+                        }
+                        if(face == 4 && row ==1 && col ==0 ) {
+                        	int[] pair = state[face][row];
+                        	state[face][row] =state[face-3][row] ;
+                        	state[face-3][row] = pair;
+                        }
+                        if(face ==3 && row == 0 && col == 0) {	//face 0 
+                            int i = state[face][row][col];	
+                            state[face][row][col] = state[face][row][col+1];// 0 => 2
+                            state[face][row][col+1] = i ; 
+                            i = state[face][row+1][col];
+                            state[face][row+1][col] = state[face][row+1][col+1];
+                            state[face][row+1][col+1] = i ;
+                            i = state[face][row][col] ; 
+                            state[face][row][col] = state[face][row+1][col+1] ;
+                            state[face][row+1][col+1] = i ; 
+                           
+
+                          }
+                     
+                        }
+    
+                        
+                    }
+
+                }break;
+                
+                
+        	case "R" : 
+        		   for (int face = 0; face < state.length; face++) {
+                       // Iterate through each row of the face
+                       for (int row = 0; row < state[face].length; row++) {
+                           // Iterate through each column of the face
+                           for (int col = 0; col < state[face][row].length; col++) {
+                               if(face ==0 && row == 0 && col == 0) {
+                            	   int i = state[face][row][col+1];
+                            	   state[face][row][col+1] = state[face+2][row][col+1];
+                            	   state[face+2][row][col+1] = i;
+                            	    i = state[face][row+1][col+1];
+                            	   state[face][row+1][col+1] =   state[face+2][row+1][col+1];
+                            	   state[face+2][row+1][col+1] = i;
+                               }
+                               if(face ==1 && row ==0 && col == 0 ) {
+                            	   int i = state[face][row][col];
+                            	   state[face][row][col] = state[face][row][col+1];
+                            	   state[face][row][col+1] = i ;
+                            	    i = state[face][row+1][col];
+                            	    state[face][row+1][col] = state[face][row+1][col+1];
+                            	    state[face][row+1][col+1] = i;
+                            	    i = state[face][row][col];
+                            	    state[face][row][col] = state[face][row+1][col+1];
+                            	    state[face][row+1][col+1] = i ;
+
+                               }
+                               if(face ==2 && row ==0 && col == 0 ) {
+                            	   int i = state[face][row][col+1];
+                            	   state[face][row][col+1] = state[face+1][row][col+1];
+                            	   state[face+1][row][col+1] = i;
+                            	   i = state[face][row+1][col+1];
+                            	   state[face][row+1][col+1] = state[face+1][row+1][col+1];
+                            	   state[face+1][row+1][col+1] = i;
+                               }
+                               if(face ==3 && row ==0 && col == 0) {
+                            	   int i = state[face][row][col+1];
+                            	   state[face][row][col+1] = state[face+2][row][col];
+                            	   state[face+2][row][col] = i;
+                            	   i = state[face][row+1][col+1];
+                            	   state[face][row+1][col+1] = state[face+2][row+1][col];
+                            	   state[face+2][row+1][col] = i;
+                            	   i = state[face+2][row][col];
+                            	   state[face+2][row][col]=state[face+2][row+1][col];
+                            	   state[face+2][row+1][col] = i;
+                            	   i = state[face][row][col+1];
+                            	   state[face][row][col+1]=state[face][row+1][col+1];
+                            	   state[face][row+1][col+1] = i;
+                               }
+                           }
+       
+                           
+                       }
+
+                   }break;
+        	case "L":
+        		  for (int face = 0; face < state.length; face++) {
+                      // Iterate through each row of the face
+                      for (int row = 0; row < state[face].length; row++) {
+                          // Iterate through each column of the face
+                          for (int col = 0; col < state[face][row].length; col++) {
+                        	    if(face ==0 && row == 0 && col == 0) {
+                             	   int i = state[face][row][col];
+                             	   state[face][row][col] = state[face+2][row][col];
+                             	   state[face+2][row][col] = i;
+                             	    i = state[face][row+1][col];
+                             	   state[face][row+1][col] =   state[face+2][row+1][col];
+                             	   state[face+2][row+1][col] = i;
+                                }
+                        	    if(face ==0 && row == 0 && col == 0) {
+                              	   int i = state[face][row][col];
+                              	   state[face][row][col] = state[face+3][row][col];
+                              	   state[face+3][row][col] = i;
+                              	    i = state[face][row+1][col];
+                              	   state[face][row+1][col] =   state[face+3][row+1][col];
+                              	   state[face+3][row+1][col] = i;
+                              	   
+                                 }
+                        	    if(face ==0 && row == 0 && col == 0) {
+                               	   int i = state[face][row][col];
+                               	   state[face][row][col] = state[face+5][row][col+1];
+                               	   state[face+5][row][col+1] = i;
+                               	    i = state[face][row+1][col];
+                               	   state[face][row+1][col] =   state[face+5][row+1][col+1];
+                               	   state[face+5][row+1][col+1] = i;
+                               	 i = state[face][row][col];
+                               	  state[face][row][col]=state[face][row+1][col];
+                             	   state[face][row+1][col] = i;
+                             		 i = state[face+5][row][col+1];
+                                  	  state[face+5][row][col+1]=state[face+5][row+1][col+1];
+                                	   state[face+5][row+1][col+1] = i;
+                             	   
+                                   }
+                        	    if(face ==4 && row ==0 && col == 0) {
+                             	   int i = state[face][row][col];
+                             	   state[face][row][col] = state[face][row][col+1];
+                             	   state[face][row][col+1] = i;
+                             	   i = state[face][row+1][col];
+                             	   state[face][row+1][col] = state[face][row+1][col+1];
+                             	   state[face][row+1][col+1] = i;
+                             	   i = state[face][row][col];
+                             	   state[face][row][col]=state[face][row+1][col+1];
+                             	   state[face][row+1][col+1] = i;
+                                }
+                       }
+      
+                          
+                      }
+
+                  }break;
+        	case "F" : 
+     		   for (int face = 0; face < state.length; face++) {
+                    // Iterate through each row of the face
+                    for (int row = 0; row < state[face].length; row++) {
+                        // Iterate through each column of the face
+                        for (int col = 0; col < state[face][row].length; col++) {
+                            if(face ==0 && row == 0 && col == 0) {
+                         	   int i = state[face][row+1][col];
+                         	   state[face][row+1][col] = state[face+1][row][col];
+                         	   state[face+1][row][col] = i;
+                         	    i = state[face][row+1][col+1];
+                         	   state[face][row+1][col+1] =   state[face+1][row+1][col];
+                         	   state[face+1][row+1][col] = i;
+                         	   
+                            }
+                            if(face ==3 && row == 0 && col == 0) {
+                          	   int i = state[face][row][col];
+                          	   state[face][row][col] = state[face+1][row][col+1];
+                          	   state[face+1][row][col+1] = i;
+                          	    i = state[face][row][col+1];
+                          	   state[face][row][col+1] =   state[face+1][row+1][col+1];
+                          	   state[face+1][row+1][col+1] = i;
+                          	   //////
+                            	  i = state[face-3][row+1][col];
+                              	 state[face-3][row+1][col] =  state[face][row][col+1];
+                              	 state[face][row][col+1] =i ; 
+                                 i = state[face-3][row+1][col+1];
+                                 state[face-3][row+1][col+1] = state[face][row][col];
+                                 state[face][row][col] = i ;
+                          	   
+                             }
+                            if(face == 5 && row == 0 && col == 0 ) {
+                            	int i = state[face-3][row][col];
+                            	state[face-3][row][col] = state[face-3][row][col+1]; 
+                            	state[face-3][row][col+1] = i;
+                            	 i = state[face-3][row+1][col];
+                            	 state[face-3][row+1][col] = state[face-3][row+1][col+1];
+                            	 state[face-3][row+1][col+1] = i ; 
+                            	 i = state[face-3][row][col];
+                            	 state[face-3][row][col] = state[face-3][row+1][col+1];
+                            	 state[face-3][row+1][col+1] = i ; 
+                            }
+
+
+                        }
+                    }		
+
+                }break;
+        	case "B":
+                for (int face = 0; face < state.length; face++) {
+                    // Iterate through each row of the face
+                    for (int row = 0; row < state[face].length; row++) {
+                        // Iterate through each column of the face
+                        for (int col = 0; col < state[face][row].length; col++) {
+                          if (face == 0 && row == 0 && col ==0) {
+                        	  int i = state[face][row][col+1];
+                        	  state[face][row][col+1] = state[face+4][row][col];
+                        	  state[face+4][row][col] = i;
+                        	  i = state[face][row][col];
+                        	  state[face][row][col] = state[face+4][row+1][col];
+                        	  state[face+4][row+1][col] = i ; 
+                          }
+                          if(face == 1 && row == 0 && col == 0) {
+                        	  int i = state[face][row][col+1];
+                        	  state[face][row][col+1] = state[face+2][row+1][col+1];
+                        	  state[face+2][row+1][col+1] = i ;
+                        	  i = state[face][row+1][col+1];
+                        	  state[face][row+1][col+1] = state[face+2][row+1][col];
+                        	  state[face+2][row+1][col] = i ;
+                          }
+                          if(face == 3 && row ==0 && col == 0 ) {
+                        	  int i = state[face][row+1][col+1];
+                        	  state[face][row+1][col+1] = state[face-3][row][col];
+                        	  state[face-3][row][col] = i ;
+                        	   i = state[face][row+1][col];
+                        	  state[face][row+1][col] = state[face-3][row][col+1];
+                        	  state[face-3][row][col+1] = i ;
+     	
+                          }
+                        }
+    
+                        
+                    }
+
+                }break;
+                  
+                  
+            
+        		
+              
+        		
+        }	
+>>>>>>> Stashed changes
         return state;
     }
 }
