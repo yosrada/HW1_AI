@@ -1,16 +1,35 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class State {
     private int[][][] cube;
-  
+    private ArrayList<String> moves;
 
 	public State(int[][][] cube) {
 		super();
 		this.cube = cube;
-	}
+		this.moves = new ArrayList<>();
+		}
 
 
 	
+
+
+	public ArrayList<String> getMoves() {
+		return moves;
+	}
+
+
+
+
+
+	public void setMoves(ArrayList<String> moves) {
+		this.moves = moves;
+	}
+
+
+
 
 
 	public int[][][] getCube() {
@@ -45,6 +64,8 @@ public class State {
 	    }
 		return cubeFaces;
 	}
+
+
 
    /* public RubiksCube2x2() {
         // Initialize each face with its respective color

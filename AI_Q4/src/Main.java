@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class Main {
 
@@ -11,9 +13,9 @@ public class Main {
              {{16,17}, {18, 19}}, // Left
              {{20,21}, {22, 23}}  // Bottom
          };
-      
-      
-
+//         ArrayList<String> DFS_path = new ArrayList<>();
+//         Set<int[][][]> visited = new Set<>();
+//         DFS_path = dfs(GoalCube, visited);
 	}
 	//goal function
 	public static Boolean isGoal(State S) {
@@ -46,21 +48,65 @@ public class Main {
          }
          return flag;
     }
+	static char[][][] convertToChar(int[][][] state){
+		char[][][] StringState= new char[6][2][2] ; 
+		for (int face = 0; face < state.length; face++) {
+            // Iterate through each row of the face
+            for (int row = 0; row < state[face].length; row++) {
+                // Iterate through each column of the face
+                for (int col = 0; col < state[face][row].length; col++) {
+                	if(state[face][row][col] == 0 || state[face][row][col] == 1 || state[face][row][col] == 2 ||state[face][row][col] == 3) {
+                		StringState[face][row][col] = 'W'; 	
+                	}
+                	if(state[face][row][col] == 4  || state[face][row][col] == 5 || state[face][row][col] == 6 ||state[face][row][col] == 7) {
+                		StringState[face][row][col] = 'R';
+                	}
+                	if(state[face][row][col] == 8  || state[face][row][col] == 9 || state[face][row][col] == 10 ||state[face][row][col] == 11) {
+                		StringState[face][row][col] = 'G';
+                	}
+                	if(state[face][row][col] == 12  || state[face][row][col] == 13 || state[face][row][col] == 14 ||state[face][row][col] == 15) {
+                		StringState[face][row][col] = 'Y';
+                	}
+                	if(state[face][row][col] == 16  || state[face][row][col] == 17 || state[face][row][col] == 18 ||state[face][row][col] == 19) {
+                		StringState[face][row][col] = 'O';
+                	}
+                	if(state[face][row][col] == 20  || state[face][row][col] == 21 || state[face][row][col] == 22 ||state[face][row][col] == 23) {
+                		StringState[face][row][col] = 'B';
+                	}
+                }
+            }
+		}
+		String cubeFaces="";
+		for (int face = 0; face < StringState.length; face++) {
+            // Iterate through each row of the face
+            for (int row = 0; row < StringState[face].length; row++) {
+                // Iterate through each column of the face
+                for (int col = 0; col < StringState[face][row].length; col++) {
+                	cubeFaces+=StringState[face][row][col] + " ";
+                }
+            }
+            cubeFaces+="\n";
+         }
+		System.out.println(cubeFaces);
+		return StringState;
+	}
 	//successor function
-	static ArrayList<int[][][]> SuccessorFunction(int[][][] state){
-		ArrayList<int[][][]> statesList = new ArrayList<>();
+	static ArrayList<char[][][]> SuccessorFunction(int[][][] state){
+		ArrayList<char[][][]> statesList = new ArrayList<>();
 		int [][][] nextStates;
+		char[][][] charNextStates;
 		String[] moves = {"F","R","U","B","L","D","F`","R`","U`","B`","L`","D`"};
 		for(int i = 0 ; i <moves.length ; i++) {
 			nextStates =rotateFrontClockwise(state, moves[i]);
-			statesList.add(nextStates);
+			charNextStates = convertToChar(nextStates);
+			statesList.add(charNextStates);
 		}
+	
 		return statesList;
 	}
 	//moves function
 	static int[][][] rotateFrontClockwise(int[][][] state , String move) {
-		System.out.println(move+"***\n");
-		System.out.println("im in");
+
 		
                      
         switch (move) {
@@ -671,4 +717,27 @@ public class Main {
 
         return state;
     }
+
+	//DFS function
+	public static List<String> dfs(State cube, Set<int[][][]> visited) {
+        if (isGoal(cube)) {
+            return cube.getMoves();
+        }
+
+        visited.add(cube.getCube());
+        String[] possibleMoves = {"F","R","U","B","L","D","F`","R`","U`","B`","L`","D`"};
+        for (String move : possibleMoves ) {
+            State newCube = cube;
+            rotateFrontClockwise(newCube.getCube(), move);
+            if (!visited.contains(newCube.getCube())) {
+                newCube.getMoves().add(move);
+                List<String> result = dfs(newCube, visited);
+                if (result != null) {
+                    return result;
+                }
+            }
+        }
+
+        return null;
 }
+	}
