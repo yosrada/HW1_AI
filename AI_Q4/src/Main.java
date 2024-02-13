@@ -32,12 +32,13 @@ public class Main {
 //		        }
 //		    
        
-     initialState.setCube(rotateFrontClockwise(initialState.getCube(), "R")); 
-     initialState.setCube(rotateFrontClockwise(initialState.getCube(), "B")); 
-     initialState.setCube(rotateFrontClockwise(initialState.getCube(), "F")); 
-     initialState.setCube(rotateFrontClockwise(initialState.getCube(), "F")); 
-     initialState.setCube(rotateFrontClockwise(initialState.getCube(), "F")); 
-     initialState.setCube(rotateFrontClockwise(initialState.getCube(), "U")); 
+       initialState.setCube(rotateFrontClockwise(initialState.getCube(), "R"));
+
+       initialState.setCube(rotateFrontClockwise(initialState.getCube(), "B")); 
+//     initialState.setCube(rotateFrontClockwise(initialState.getCube(), "F")); 
+//     initialState.setCube(rotateFrontClockwise(initialState.getCube(), "F")); 
+//     initialState.setCube(rotateFrontClockwise(initialState.getCube(), "F")); 
+//     initialState.setCube(rotateFrontClockwise(initialState.getCube(), "U")); 
      System.out.println(isGoal(initialState));
      
        for (int face = 0; face < initialState.getCube().length; face++) {
@@ -52,13 +53,13 @@ public class Main {
        }
 
        
-//         Set<String> visited = new HashSet<String>();
-//         List<String> solutionMoves = depthLimitedDFS(initialState, visited , 0 , 5);
-//         if (solutionMoves != null) {
-//             System.out.println("Solution found! Moves: " + solutionMoves);
-//         } else {
-//             System.out.println("No solution found.");
-//         }
+         Set<String> visited = new HashSet<String>();
+         List<String> solutionMoves = depthLimitedDFS(initialState, visited , 0 , 12);
+         if (solutionMoves != null) {
+             System.out.println("Solution found! Moves: " + solutionMoves);
+         } else {
+             System.out.println("No solution found.");
+         }
 
 	}
 
@@ -143,7 +144,7 @@ public class Main {
                      	state[face+2][row] = pair;
                      	 
                      }
-                     if(face == 4 && row ==0 && col ==0 ) {
+                     if(face == 5 && row ==0 && col ==0 ) {
                      	char[] pair = state[face][row];
                      	state[face][row] =state[face-3][row] ;
                      	state[face-3][row] = pair;
