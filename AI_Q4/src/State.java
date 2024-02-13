@@ -1,70 +1,78 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class State {
-    private int[][][] cube;
+    private char[][][] cube;
     private ArrayList<String> moves;
 
-	public State(int[][][] cube) {
-		super();
-		this.cube = cube;
-		this.moves = new ArrayList<>();
-		}
+    public State(char[][][] cube) {
+        super();
+        this.cube = cube;
+        this.moves = new ArrayList<>();
+    }
+
+    public ArrayList<String> getMoves() {
+        return moves;
+    }
+
+    public void setMoves(ArrayList<String> moves) {
+        this.moves = moves;
+    }
+
+    public char[][][] getCube() {
+        return cube;
+    }
+
+    public void setCube(char[][][] cube) {
+        this.cube = cube;
+    }
+
+    // Deep clone the cube array
+    public State cloneCube() {
+        char[][][] newCube = new char[cube.length][][];
+        for (int i = 0; i < cube.length; i++) {
+            newCube[i] = new char[cube[i].length][];
+            for (int j = 0; j < cube[i].length; j++) {
+                newCube[i][j] = cube[i][j].clone();
+            }
+        }
+        State newState = new State(newCube);
+        newState.setMoves(new ArrayList<>(this.moves)); // Also clone the moves if necessary
+        return newState;
+    }
+
+    public String stateIdentifier() {
+        StringBuilder identifier = new StringBuilder();
+        for (char[][] face : cube) {
+            for (char[] row : face) {
+                for (char tile : row) {
+                    identifier.append(tile);
+                }
+            }
+        }
+        return identifier.toString();
+    }
 
 
-	
 
-
-	public ArrayList<String> getMoves() {
-		return moves;
-	}
-
-
-
-
-
-	public void setMoves(ArrayList<String> moves) {
-		this.moves = moves;
-	}
-
-
-
-
-
-	public int[][][] getCube() {
-		return cube;
-	}
-
-
-
-
-
-	public void setCube(int[][][] cube) {
-		this.cube = cube;
-	}
-
-
-
-
-
-	@Override
-	public String toString() {
-		String cubeFaces="";
-		for (int face = 0; face < cube.length; face++) {
-			cubeFaces+="Face " + (face ) + ":\n";
-	        // Iterate through each row of the face
-	        for (int row = 0; row < cube[face].length; row++) {
-	            // Iterate through each column of the face
-	            for (int col = 0; col < cube[face][row].length; col++) {
-	            	cubeFaces+=cube[face][row][col] + " ";
-	            }
-	        }
-	        cubeFaces+="\n";
-	    }
-		return cubeFaces;
-	}
-
+    @Override
+    public String toString() {
+        String cubeFaces = "";
+        for (int face = 0; face < cube.length; face++) {
+            cubeFaces += "Face " + (face) + ":\n";
+            for (char[] row : cube[face]) {
+                for (int tile : row) {
+                    cubeFaces += tile + " ";
+                }
+                cubeFaces += "\n";
+            }
+        }
+        return cubeFaces;
+    }
+}
 
 
    /* public RubiksCube2x2() {
@@ -80,4 +88,4 @@ public class State {
     }*/
 
 
-}
+
