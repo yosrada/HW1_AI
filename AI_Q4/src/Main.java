@@ -2,67 +2,51 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Scanner; 
 
 public class Main {
 
 	public static void main(String[] args) {
-		   char[][][] inputCube = {
-		            {{'W' , 'W' }, {'W', 'W'}}, // Top
-		            {{'R', 'R'}, {'R', 'R'}}, // Front
-		            {{'G', 'G'}, {'G', 'G'}}, // Right
-		            {{'Y', 'Y'}, {'Y', 'Y'}}, // Back
-		            {{'O', 'O'}, {'O', 'O'}}, // Left
-		            {{'B', 'B'}, {'B', 'B'}}  // Bottom
-		        };
+		
+        Scanner scanner = new Scanner(System.in);
 
-		   
-        State initialState = new State(inputCube);
-        System.out.println(isGoal(initialState));
+        System.out.print("Enter a string: ");
+        String userInput = "";
+        do {
+            // Prompt the user to enter a string
+        	if(userInput!="") {
+                System.out.print("You must inter a valid string that contain  R,B,O,G,Y,W and the length is 24");
+
+        	}
+            System.out.print("Enter a string (type 'quit' to exit): ");
+
+            // Read the string entered by the user
+            userInput = scanner.nextLine();
+
+        } while ( !isValidString(userInput)||userInput.length()!=24 || !isValidInput(userInput)  );
         
-//		        Set<String> visited = new HashSet<>();
-//		        int maxDepth = 3; // You can adjust this based on your requirements
-//
-//		        // Call the DFS function with the initial depth of 0 and the maximum depth
-//		        List<String> solutionMoves = iterativeDeepeningDFS(initialState, maxDepth);
-//                
-//		        if (solutionMoves != null) {
-//		            System.out.println("Solution found! Moves: " + solutionMoves);
-//		        } else {
-//		            System.out.println("No solution found.");
-//		        }
-//		    
-       
-       initialState.setCube(rotateFrontClockwise(initialState.getCube(), "D"));
-
-       initialState.setCube(rotateFrontClockwise(initialState.getCube(), "B")); 
-       initialState.setCube(rotateFrontClockwise(initialState.getCube(), "F")); 
-//     initialState.setCube(rotateFrontClockwise(initialState.getCube(), "F")); 
-//     initialState.setCube(rotateFrontClockwise(initialState.getCube(), "F")); 
-       initialState.setCube(rotateFrontClockwise(initialState.getCube(), "U")); 
-        System.out.println(isGoal(initialState));
-     
-       for (int face = 0; face < initialState.getCube().length; face++) {
-           System.out.println(  " face: " +face );
-           for (int row = 0; row < inputCube[face].length; row++) {
-               for (int col = 0; col < inputCube[face][row].length; col++) {
-                   System.out.print(inputCube[face][row][col] + " ");
-               }
-               System.out.println(); // Move to the next line after printing each row
-           }
-           System.out.println(); // Extra line for spacing between faces
-       }
-
-       
-         Set<String> visited = new HashSet<String>();
-         List<String> solutionMoves = depthLimitedDFS(initialState, visited , 0 , 15);
-         if (solutionMoves != null) {
-             System.out.println("Solution found! Moves: " + solutionMoves);
-         } else {
-             System.out.println("No solution found.");
-         }
+        System.out.print("Do you want Dfs algorthim ? YES or NO  ");
+        String algorthim = scanner.nextLine();
+        char[][][] inputCube;
+        if (algorthim.equals("YES")) {
+ 		    inputCube = createCube(userInput);
+ 	        scanner.close();
+ 	        State initialState = new State(inputCube); 	      
+ 	     
+ 	         Set<String> visited = new HashSet<String>();
+ 	         List<String> solutionMoves = depthLimitedDFS(initialState, visited , 0 , 15); //we limited the algorthim by depth 
+ 	         if (solutionMoves != null) {
+ 	             System.out.println("Solution found! Moves: " + solutionMoves);
+ 	             System.out.println("\n - the count of the moves :"+ solutionMoves.size());
+ 	         } else {
+ 	             System.out.println("No solution found.");
+ 	         }
+        }
+      
 
 	}
 
+	
 		
 	//goal function
 	public static Boolean isFaceUniform(char[][] face ) {
@@ -774,6 +758,69 @@ public class Main {
 	    }
 	    return null; // No solution found within the maximum depth
 	}
+	public static boolean isValidInput(String input) {
+	    for (int i = 0; i < input.length(); i++) {
+	        char c = input.charAt(i);
+	        if (!Character.isUpperCase(c) || !Character.isLetter(c)) {
+	            // If any character is not an uppercase letter, return false
+	            return false;
+	        }
+	    }
+	    // If all characters are uppercase letters, return true
+	    return true;
+	}
+	 public static boolean isValidString(String input) {	        //Count occurrences of each letter in the input string- Check if each letter count is exactly four
+	        int countW = 0, countR = 0, countG = 0, countY = 0, countO = 0, countB = 0;
+
+	        for (char c : input.toCharArray()) {
+	            switch (c) {
+	                case 'W':
+	                    countW++;
+	                    break;
+	                case 'R':
+	                    countR++;
+	                    break;
+	                case 'G':
+	                    countG++;
+	                    break;
+	                case 'Y':
+	                    countY++;
+	                    break;
+	                case 'O':
+	                    countO++;
+	                    break;
+	                case 'B':
+	                    countB++;
+	                    break;
+	                default:
+	                    // Ignore other characters
+	                    break;
+	            }
+	        }
+	        return countW == 4 && countR == 4 && countG == 4 && countY == 4 && countO == 4 && countB == 4;
+	    }
+	 
+	  public static char[][][] createCube(String input) { //fill the cube array -
+	        char[][][] cube = new char[6][2][2]; // 
+	        int faceIndex = 0;
+	        int charIndex = 0;
+
+	        // Iterate through the input string
+	        for (int i = 0; i < input.length(); i++) {
+	            char c = input.charAt(i);
+	            cube[faceIndex][charIndex / 2][charIndex % 2] = c;
+
+	            charIndex++;
+
+	            if (charIndex == 4) {
+	                faceIndex++;
+	                charIndex = 0;
+	            }
+	        }
+
+	        return cube;
+	    }
+	
 
 
 	}
