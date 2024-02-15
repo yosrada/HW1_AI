@@ -32,14 +32,14 @@ public class Main {
 //		        }
 //		    
        
-       initialState.setCube(rotateFrontClockwise(initialState.getCube(), "R"));
+       initialState.setCube(rotateFrontClockwise(initialState.getCube(), "D"));
 
        initialState.setCube(rotateFrontClockwise(initialState.getCube(), "B")); 
+       initialState.setCube(rotateFrontClockwise(initialState.getCube(), "F")); 
 //     initialState.setCube(rotateFrontClockwise(initialState.getCube(), "F")); 
 //     initialState.setCube(rotateFrontClockwise(initialState.getCube(), "F")); 
-//     initialState.setCube(rotateFrontClockwise(initialState.getCube(), "F")); 
-//     initialState.setCube(rotateFrontClockwise(initialState.getCube(), "U")); 
-     System.out.println(isGoal(initialState));
+       initialState.setCube(rotateFrontClockwise(initialState.getCube(), "U")); 
+        System.out.println(isGoal(initialState));
      
        for (int face = 0; face < initialState.getCube().length; face++) {
            System.out.println(  " face: " +face );
@@ -54,7 +54,7 @@ public class Main {
 
        
          Set<String> visited = new HashSet<String>();
-         List<String> solutionMoves = depthLimitedDFS(initialState, visited , 0 , 12);
+         List<String> solutionMoves = depthLimitedDFS(initialState, visited , 0 , 15);
          if (solutionMoves != null) {
              System.out.println("Solution found! Moves: " + solutionMoves);
          } else {
