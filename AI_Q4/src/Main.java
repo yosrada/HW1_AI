@@ -10,7 +10,6 @@ public class Main {
 		
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter a string: ");
         String userInput = "";
         do {
             // Prompt the user to enter a string
@@ -18,14 +17,18 @@ public class Main {
                 System.out.print("You must inter a valid string that contain  R,B,O,G,Y,W and the length is 24");
 
         	}
-            System.out.print("Enter a string (type 'quit' to exit): ");
+            System.out.println("Enter your current state as a string (type 'quit' to exit): ");
 
             // Read the string entered by the user
             userInput = scanner.nextLine();
+            if(userInput.equals("quit")) {
+            	System.out.println("GoodBye");
+            	System.exit(0);
+            }
 
-        } while ( !isValidString(userInput)||userInput.length()!=24 || !isValidInput(userInput)  );
+        } while ( !isValidString(userInput)||userInput.length()!=24 || !isValidInput(userInput) );
         
-        System.out.print("Do you want Dfs algorthim ? YES or NO  ");
+        System.out.println("Do you want Dfs algorthim ? YES or NO  ");
         String algorthim = scanner.nextLine();
         char[][][] inputCube;
         if (algorthim.equals("YES")) {
@@ -38,8 +41,12 @@ public class Main {
  	         if (solutionMoves != null) {
  	             System.out.println("Solution found! Moves: " + solutionMoves);
  	             System.out.println("\n - the count of the moves :"+ solutionMoves.size());
+             	System.out.println("GoodBye");
+ 	             System.exit(0);
  	         } else {
  	             System.out.println("No solution found.");
+             	System.out.println("GoodBye");
+ 	             System.exit(0);
  	         }
         }
       
